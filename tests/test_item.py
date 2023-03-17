@@ -14,3 +14,21 @@ def test_calculate_total_price(item):
 
 def test_apply_discount(item):
     assert item.apply_discount() == 100000.0
+
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
+
+
+def test_string_to_number():
+    assert Item.string_to_number('10.5') == 10
+
+
+def test_name(item):
+    assert item.name == 'Samsa'
+
+
+def test_setter_name():
+    item.name = 'WOK'
+    assert item.name == 'WOK'
