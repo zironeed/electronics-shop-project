@@ -32,3 +32,11 @@ def test_name(item):
 def test_setter_name():
     item.name = 'WOK'
     assert item.name == 'WOK'
+
+
+def test_repr():
+    assert repr(item) == "Item('Смартфон', 10000, 20)"
+
+
+def test_str():
+    assert str(item) == 'Смартфон'
