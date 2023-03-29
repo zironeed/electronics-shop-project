@@ -30,16 +30,22 @@ class Item:
     def __str__(self):
         return f'{self.name}'
 
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError('Можно складывать только экземпляры классов Phone и Item')
+
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
     @name.setter
-    def name(self, new_name):
+    def name(self, new_name) -> None or Exception:
         if len(new_name) <= 10:
             self.__name = new_name
         else:
-            print("Exception: Длина наименования товара превышает 10 символов.")
+            raise Exception("Длина наименования товара превышает 10 символов.")
 
     def calculate_total_price(self) -> float:
         """
@@ -49,7 +55,7 @@ class Item:
         """
         return self.price * self.quantity
 
-    def apply_discount(self) -> None:
+    def apply_discount(self) -> float:
         """
         Применяет установленную скидку для конкретного товара.
         """

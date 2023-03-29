@@ -1,11 +1,18 @@
 import pytest
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
 def item():
     item = Item('Samsa', 100000.0, 10)
     return item
+
+
+@pytest.fixture
+def phone():
+    phone = Phone('Ifone', 120000, 10, 2)
+    return phone
 
 
 def test_calculate_total_price(item):
@@ -29,14 +36,18 @@ def test_name(item):
     assert item.name == 'Samsa'
 
 
-def test_setter_name():
+def test_setter_name(item):
     item.name = 'WOK'
     assert item.name == 'WOK'
 
 
-def test_repr():
-    assert repr(item) == "Item('Смартфон', 10000, 20)"
+def test_repr(item):
+    assert repr(item) == "Item('Samsa', 100000.0, 10)"
 
 
-def test_str():
-    assert str(item) == 'Смартфон'
+def test_str(item):
+    assert str(item) == 'Samsa'
+
+
+def test_add(item, phone):
+    assert item + phone == 20
