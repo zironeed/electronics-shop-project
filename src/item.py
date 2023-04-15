@@ -2,6 +2,8 @@ import csv
 import os
 import math
 
+from exceptions.InstantiateCSV import InstantiateCSVError
+
 
 class Item:
     """
@@ -63,24 +65,29 @@ class Item:
         return self.price
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, abs_file_path: str ="../src/items.csv") -> None:
         csv_data = []
         count = 0
 
-        script_dir = os.path.dirname(__file__)
-        rel_path = "items.csv"
-        abs_file_path = os.path.join(script_dir, rel_path)
-        cls.all.clear()
+        try:
 
-        with open(abs_file_path) as file:
-            reader = csv.reader(file, delimiter=",")
-            for line in reader:
-                if count == 0:
+            with open(abs_file_path) as file:
+                reader = csv.reader(file, delimiter=",")
+                for line in reader:
+                    if count != 0:
+                        csv_data.append(line)
+                    else:
+                        if len(line) != 3:
+                            raise InstantiateCSVError
                     count += 1
-                    continue
-                csv_data.append(line)
-        for data in csv_data:
-            cls(*data)
+
+        except InstantiateCSVError as error:
+            print(error)
+        except FileNotFoundError:
+            print("Отсутствует файл items.csv")
+
+            for data in csv_data:
+                cls(*data)
 
     @staticmethod
     def string_to_number(number: str):
