@@ -58,5 +58,5 @@ def test_damaged_instantiate_from_csv(item):
 
 
 def test_missing_instantiate_from_csv(item):
-    item.instantiate_from_csv("test_items1.csv")
-    assert "Отсутствует файл test_items1.csv"
+    item.instantiate_from_csv("file.csv")
+    assert "Отсутствует файл file.csv"
